@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    const newRoom = new Room({ name, description, price, images, availability: [] });
+    const newRoom = new Room({ name, description, price, images, availability: true });
     const room = await newRoom.save();
     res.status(201).json(room);
   } catch (err) {
