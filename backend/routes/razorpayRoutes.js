@@ -2,6 +2,7 @@ const express = require("express");
 const Razorpay = require("razorpay");
 const Room = require("../models/roomModel");
 const Booking = require("../models/bookingModel");
+const razorpayWebhook = require('../controllers/razorpayWebhook');
 
 const router = express.Router();
 const razorpayInstance = new Razorpay({
@@ -69,6 +70,8 @@ router.post('/capture-payment', async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   });
+
+  router.post('/webhook', razorpayWebhook);
   
 
 module.exports = router;

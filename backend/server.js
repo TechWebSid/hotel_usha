@@ -7,6 +7,7 @@ const roomRoutes = require('./routes/roomRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const razorpayRoutes = require('./routes/razorpayRoutes');
+
 const { errorHandler } = require('./middleware/errorMiddleware');
 
 // Load environment variables
