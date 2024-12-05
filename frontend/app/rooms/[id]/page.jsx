@@ -87,9 +87,7 @@ export default function RoomDetailPage() {
               </button>
             </Link>
             <button
-              className={`sm:ml-4 mt-4 sm:mt-0 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 ${
-                !room.availability ? 'cursor-not-allowed opacity-50' : ''
-              }`}
+              className={`sm:ml-4 mt-4 sm:mt-0 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 ${!room.availability ? 'cursor-not-allowed opacity-50' : ''}`}
               onClick={handleBookNow}
               disabled={!room.availability}
             >

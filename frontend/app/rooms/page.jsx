@@ -48,9 +48,7 @@ export default function RoomsPage() {
         {rooms.map((room) => (
           <div
             key={room._id}
-            className={`bg-white shadow-md rounded-lg overflow-hidden ${
-              !room.availability ? 'opacity-50' : ''
-            }`}
+            className={`bg-white shadow-md rounded-lg overflow-hidden ${!room.availability ? 'opacity-50' : ''}`}
           >
             <img
               src={room.images?.[0] || "https://via.placeholder.com/400x300"}
@@ -66,9 +64,7 @@ export default function RoomsPage() {
               </p>
               <Link href={`/rooms/${room._id}`}>
                 <button
-                  className={`mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition ${
-                    !room.availability ? 'cursor-not-allowed opacity-50' : ''
-                  }`}
+                  className={`mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition ${!room.availability ? 'cursor-not-allowed opacity-50' : ''}`}
                   disabled={!room.availability}
                 >
                   View Details

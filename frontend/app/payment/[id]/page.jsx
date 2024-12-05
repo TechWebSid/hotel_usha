@@ -55,7 +55,7 @@ export default function PaymentPage() {
       handler: function (response) {
         // After successful payment, send data to backend
         const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
-  
+
         fetch("http://localhost:5000/api/razorpay/capture-payment", { // Use your payment capture route here
           method: "POST",
           headers: {
@@ -75,7 +75,7 @@ export default function PaymentPage() {
             console.log("Booking confirmed:", data);
             alert("Payment successful! Your booking is confirmed.");
             router.push("/success"); // Redirect to success page
-  
+
             // Re-fetch room data to show updated availability
             fetch(`http://localhost:5000/api/rooms/${room._id}`)
               .then((res) => res.json())
@@ -97,11 +97,10 @@ export default function PaymentPage() {
         color: "#F37254",
       },
     };
-  
+
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
   };
-  
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -121,6 +120,8 @@ export default function PaymentPage() {
           <h2 className="text-xl font-bold text-gray-800">{room.name}</h2>
           <p className="text-gray-600">{room.description}</p>
           <p className="mt-2 text-indigo-600 font-bold">₹{room.price}/night</p>
+          <p className="mt-4 text-gray-500">Check-in: {room.checkInDate}</p>
+          <p className="text-gray-500">Check-out: {room.checkOutDate}</p>
           <button
             onClick={handlePayment}
             className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition"
