@@ -1,21 +1,47 @@
 const mongoose = require('mongoose');
 
-// Define the Booking schema
-const bookingSchema = new mongoose.Schema({
-  user: {
-    name: { type: String, required: true }, // User name
-    email: { type: String, required: true }, // User email
-    phone: { type: String, required: true }, // User phone number
+const bookingSchema = new mongoose.Schema(
+  {
+    user: {
+      name: { type: String, required: true },
+      email: {
+        type: String,
+        required: true,
+        match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address'],
+      },
+      phone: {
+        type: String,
+        required: true,
+        match: [/^\d{10}$/, 'Phone number must be 10 digits'],
+      },
+    },
+    room: { type: mongoose.Schema.Types.ObjectId, ref: 'Room', required: true },
+    checkInDate: { type: Date, required: true },
+    checkOutDate: {
+      type: Date,
+      required: true,
+      validate: {
+        validator: function (value) {
+          return value > this.checkInDate;
+        },
+        message: 'Check-out date must be after check-in date',
+      },
+    },
+    status: {
+      type: String,
+      enum: ['Pending', 'Confirmed', 'Cancelled'],
+      default: 'Pending',
+    },
   },
-  room: { type: mongoose.Schema.Types.ObjectId, ref: 'Room', required: true }, // Room booked
-  checkInDate: { type: Date, required: true }, // Check-in date
-  checkOutDate: { type: Date, required: true }, // Check-out date
-  status: { type: String, default: 'Pending' }, // Status of the booking (e.g., 'Pending', 'Confirmed')
-}, {
-  timestamps: true, // Automatically add createdAt and updatedAt fields
-});
+  {
+    timestamps: true,
+  }
+);
 
-// Create the Booking model
+// Add indexes for faster queries
+bookingSchema.index({ 'user.email': 1 });
+bookingSchema.index({ room: 1 });
+
 const Booking = mongoose.model('Booking', bookingSchema);
 
 module.exports = Booking;
